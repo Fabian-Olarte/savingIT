@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bottomNavitagion">
+        <item name="android:background">#202020</item>
+        <item name="itemIconTint">#1A710B</item>
+        <item name="itemTextColor">#1A710B</item>
+    </style>
+
+
+
+
+</resources>
