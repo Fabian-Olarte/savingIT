@@ -1,14 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrincipalFragment">
+    tools:context=".PrincipalFragment"
+    android:background="@color/negroNoche">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Mateo chupon" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layoutBalanceActual"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@drawable/border_rounded_balance"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:paddingLeft="20dp"
+                android:text="Balance Actual"
+                style="@style/textoPrincipal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="40dp"
+                android:text="$ 20´000.000"
+                style="@style/textoPrincipal"
+                android:textStyle="bold"
+                android:textSize="30dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutBalanceActual">
+
+            <LinearLayout
+                android:id="@+id/layoutIngresos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_rounded_ingresos"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="60dp"
+                    android:text="Ingresos"
+                    style="@style/textoPrincipal"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:text="$ 21´000.000"
+                    style="@style/textoPrincipal"
+                    android:textStyle="bold"
+                    android:textSize="23dp"/>
+
+                <ImageButton
+                    android:id="@+id/agregarIngreso"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/agregar"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="#00FFFFFF"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutGastos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_rounded_gastos"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="60dp"
+                    android:text="Gastos"
+                    style="@style/textoPrincipal"/>
+
+                <TextView
+                    android:id="@+id/valorGastado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
+                    style="@style/textoPrincipal"
+                    android:textStyle="bold"
+                    android:textSize="23dp"
+                    android:text="$ 1´000.000"/>
+
+                <ImageButton
+                    android:id="@+id/agregarGasto"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/agregar"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="#00FFFFFF"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAhorrado"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/border_rounded_ahorrado"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="Ahorrado"
+                style="@style/textoPrincipal"/>
+
+            <TextView
+                android:id="@+id/valorAhorrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                style="@style/textoPrincipal"
+                android:text="$ 5´000.000"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>
