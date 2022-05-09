@@ -10,16 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-<<<<<<< Updated upstream
-
-import com.google.firebase.auth.FirebaseAuth;
-=======
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-
 import de.hdodenhof.circleimageview.CircleImageView;
->>>>>>> Stashed changes
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,10 +40,6 @@ public class PerfilFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ImageButton cerrar1;
-    Button cerrar;
-
-    private FirebaseAuth auth;
     public PerfilFragment() {
         // Required empty public constructor
     }
@@ -85,11 +75,7 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-<<<<<<< Updated upstream
-        View root = inflater.inflate(R.layout.fragment_perfil, container, false);
-        auth = FirebaseAuth.getInstance();
 
-=======
 
         View root = inflater.inflate(R.layout.fragment_perfil, container, false);
         auth = FirebaseAuth.getInstance();
@@ -97,7 +83,6 @@ public class PerfilFragment extends Fragment {
         settingsName = root.findViewById(R.id.nombre);
         profilePic = root.findViewById(R.id.profilePic);
 
->>>>>>> Stashed changes
         cerrar = root.findViewById(R.id.cerrarSesion);
         cerrar1 = root.findViewById(R.id.cerrarSesion2);
 
@@ -118,15 +103,12 @@ public class PerfilFragment extends Fragment {
 
             }
         });
-<<<<<<< Updated upstream
-        return  root;
-=======
+
 
         settingsName.setText(auth.getCurrentUser().getDisplayName());
         new DownloadImageTask((CircleImageView) root.findViewById(R.id.profilePic))
                 .execute(auth.getCurrentUser().getPhotoUrl().toString());
 
         return root;
->>>>>>> Stashed changes
     }
 }
