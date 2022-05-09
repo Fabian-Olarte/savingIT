@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -35,6 +37,8 @@ public class ListaResgistrosActivity extends AppCompatActivity {
     ListView listaRegistros;
     TextView titulo;
 
+    FirebaseAuth auth;
+
     ActivityResultLauncher<String> WritePermision= registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
         public void onActivityResult(Boolean result) {
@@ -50,6 +54,8 @@ public class ListaResgistrosActivity extends AppCompatActivity {
         titulo = findViewById(R.id.tituloLista);
         listaRegistros = findViewById(R.id.listaRegistros);
         constraintRegistros = findViewById(R.id.constraintRegistros);
+
+        auth = FirebaseAuth.getInstance();
 
         int opcion = getIntent().getIntExtra("opcion", 0);
 
@@ -95,7 +101,7 @@ public class ListaResgistrosActivity extends AppCompatActivity {
         String json = null;
         FileReader fr = null;
             try {
-                File file = new File(getExternalFilesDir(null), "registros.json");
+                File file = new File(getExternalFilesDir(auth.getCurrentUser().getUid()), "registros.json");
                 StringBuilder stringBuilder = new StringBuilder();
 
                 fr = new FileReader(file);

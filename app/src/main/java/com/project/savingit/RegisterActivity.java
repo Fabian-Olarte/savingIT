@@ -19,9 +19,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -71,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                 nuevaCuenta();
             }
         });
+
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,11 +126,30 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     storageReference = storage.getReference("profilePics/" + auth.getCurrentUser().getUid());
-                    storageReference.putFile(uriProfilePic).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    storageReference.putFile(uriProfilePic).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                            finish();
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    UserProfileChangeRequest.Builder probuild = new UserProfileChangeRequest.Builder();
+                                    probuild.setDisplayName(nombre.getText().toString());
+                                    probuild.setPhotoUri(uri);
+
+                                    user.updateProfile(probuild.build()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(RegisterActivity.this, "Perfil creado", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
+
                         }
                     });
 

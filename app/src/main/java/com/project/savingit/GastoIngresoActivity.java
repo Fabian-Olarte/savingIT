@@ -18,6 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -38,6 +42,9 @@ public class GastoIngresoActivity extends AppCompatActivity {
     EditText inputNombreIG, inputValorIG, inputCuentaIG;
     JSONArray registros = new JSONArray();
     String jsonRegistros = null;
+    FirebaseAuth auth;
+    FirebaseDatabase bd;
+    DatabaseReference reference;
 
 
     ActivityResultLauncher<String> WritePermision= registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -60,6 +67,10 @@ public class GastoIngresoActivity extends AppCompatActivity {
         inputValorIG = findViewById(R.id.inputValorIG);
         inputCuentaIG = findViewById(R.id.inputCuentaIG);
         buttonAgregar = findViewById(R.id.buttonAgregar);
+
+        auth = FirebaseAuth.getInstance();
+        bd = FirebaseDatabase.getInstance();
+        reference = bd.getReference();
 
         int opcion = getIntent().getIntExtra("opcion", 0);
 
@@ -107,7 +118,6 @@ public class GastoIngresoActivity extends AppCompatActivity {
 
     public void writeJSONObject(Registro registro){
 
-
         jsonRegistros = loadJSONFromAsset();
         Writer output = null;
         String filename = "registros.json";
@@ -119,7 +129,7 @@ public class GastoIngresoActivity extends AppCompatActivity {
 
             registros.put(registro.toJSON());
 
-            File file = new File(getBaseContext().getExternalFilesDir(null), filename);
+            File file = new File(getBaseContext().getExternalFilesDir(auth.getCurrentUser().getUid()), filename);
             output = new BufferedWriter(new FileWriter(file));
 
             output.write(registros.toString());
@@ -129,14 +139,13 @@ public class GastoIngresoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
     }
 
     public String loadJSONFromAsset() {
         String json = null;
         FileReader fr = null;
         try {
-            File file = new File(getExternalFilesDir(null), "registros.json");
+            File file = new File(getExternalFilesDir(auth.getCurrentUser().getUid()), "registros.json");
             StringBuilder stringBuilder = new StringBuilder();
 
             fr = new FileReader(file);

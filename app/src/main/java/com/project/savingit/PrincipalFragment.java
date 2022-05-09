@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ public class PrincipalFragment extends Fragment {
     JSONArray jsonArray = null;
     long ingresos = 0;
     long gastos = 0;
-
+    FirebaseAuth auth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -95,6 +97,7 @@ public class PrincipalFragment extends Fragment {
         ingresoText = root.findViewById(R.id.ingresotext);
         balanceText = root.findViewById(R.id.balancetext);
 
+        auth = FirebaseAuth.getInstance();
 
 
         try{
@@ -195,7 +198,7 @@ public class PrincipalFragment extends Fragment {
         String json = null;
         FileReader fr = null;
         try {
-            File file = new File(getActivity().getExternalFilesDir(null), "registros.json");
+            File file = new File(getActivity().getExternalFilesDir(auth.getCurrentUser().getUid()), "registros.json");
             StringBuilder stringBuilder = new StringBuilder();
 
             fr = new FileReader(file);
