@@ -101,12 +101,5 @@ public class IniciarSesionActivity extends AppCompatActivity {
         });
 
     }
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        updateUI(currentUser);
-    }*/
+    
 }

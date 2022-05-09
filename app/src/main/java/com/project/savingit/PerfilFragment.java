@@ -1,5 +1,6 @@
 package com.project.savingit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +29,10 @@ public class PerfilFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    ImageButton cerrar1;
+    Button cerrar;
+
+    private FirebaseAuth auth;
     public PerfilFragment() {
         // Required empty public constructor
     }
@@ -59,6 +68,29 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil, container, false);
+        View root = inflater.inflate(R.layout.fragment_perfil, container, false);
+        auth = FirebaseAuth.getInstance();
+
+        cerrar = root.findViewById(R.id.cerrarSesion);
+        cerrar1 = root.findViewById(R.id.cerrarSesion2);
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                getActivity().startActivity(new Intent(getActivity(), IniciarSesionActivity.class ));
+
+            }
+        });
+
+        cerrar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                getActivity().startActivity(new Intent(getActivity(), IniciarSesionActivity.class ));
+
+            }
+        });
+        return  root;
     }
 }

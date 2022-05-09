@@ -148,29 +148,35 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/cerrarSesion2"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="3"
-            android:src="@drawable/vector_ic_baseline_highlight_off_24" />
+            android:src="@drawable/vector_ic_baseline_highlight_off_24"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="@color/negroNoche"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <Button
+            android:id="@+id/cerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="7"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:text="Salir"
+            android:text="Cerrar sesión"
             android:textColor="#D30404"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:backgroundTint="#00272727" />
 
     </LinearLayout>
 
