@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/principal"
+        android:icon="@drawable/vector_money"
+        android:title="Principal"/>
+
+    <item
+        android:id="@+id/compras"
+        android:icon="@drawable/vector_compras"
+        android:title="Compras"/>
+
+    <item
+        android:id="@+id/consejos"
+        android:icon="@drawable/vector_consejos"
+        android:title="Consejos"/>
+
+    <item
+        android:id="@+id/perfil"
+        android:icon="@drawable/vector_perfil"
+        android:title="Perfil"/>
+</menu>

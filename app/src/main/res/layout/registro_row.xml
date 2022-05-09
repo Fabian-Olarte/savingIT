@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/negroNoche"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nombrePago"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="PAGO DE ESTO"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/nombreCuenta"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Tarjeta de credito"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/valorPago"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="$2´000.000"
+                android:gravity="center"
+                android:textColor="@color/verdeSaving"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/fechaPago"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="1/3/2022"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:layout_weight="3"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iconoRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingRight="15dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">savingIT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="texto0"><b>¿Como pueder ahorrar dinero en tu dia a dia?</b></string>
+    <string name="texto1">En el mundo de hoy es facil ahorrar a traves de estrategias como analisís de gastos e ingresos...</string>
+    <string name="texto2"><b>Miles de personas han generado dinero gracias a los nft\'s.</b></string>
+    <string name="texto3">Un token NO fungible es un tipo especial de token criptográfico que representa algo único.</string>
+    <string name="texto4"><b>Como las personas invierten en BITCOIN</b></string>
+    <string name="texto5">Cualquiera puede obtener grandes ganacias invirtiendo en criptomonedas. Solo hay que invertir</string>
+</resources>
