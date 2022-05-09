@@ -93,7 +93,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
-        android:id="@+id/imageView"
+        android:id="@+id/imagenRegister"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="50dp"
@@ -115,7 +115,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imagenRegister"
         app:layout_constraintVertical_bias="0.496"
         />
 

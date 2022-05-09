@@ -10,15 +10,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+<<<<<<< Updated upstream
 
 import com.google.firebase.auth.FirebaseAuth;
+=======
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+>>>>>>> Stashed changes
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PerfilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class PerfilFragment extends Fragment {
+
+    TextView settingsName;
+    CircleImageView profilePic;
+
+    FirebaseAuth auth;
+
+    ImageButton cerrar1;
+    Button cerrar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,9 +85,19 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+<<<<<<< Updated upstream
         View root = inflater.inflate(R.layout.fragment_perfil, container, false);
         auth = FirebaseAuth.getInstance();
 
+=======
+
+        View root = inflater.inflate(R.layout.fragment_perfil, container, false);
+        auth = FirebaseAuth.getInstance();
+
+        settingsName = root.findViewById(R.id.nombre);
+        profilePic = root.findViewById(R.id.profilePic);
+
+>>>>>>> Stashed changes
         cerrar = root.findViewById(R.id.cerrarSesion);
         cerrar1 = root.findViewById(R.id.cerrarSesion2);
 
@@ -91,6 +118,15 @@ public class PerfilFragment extends Fragment {
 
             }
         });
+<<<<<<< Updated upstream
         return  root;
+=======
+
+        settingsName.setText(auth.getCurrentUser().getDisplayName());
+        new DownloadImageTask((CircleImageView) root.findViewById(R.id.profilePic))
+                .execute(auth.getCurrentUser().getPhotoUrl().toString());
+
+        return root;
+>>>>>>> Stashed changes
     }
 }
