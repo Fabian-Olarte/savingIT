@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484690324736",
+    "project_id": "saving-it-81ffa",
+    "storage_bucket": "saving-it-81ffa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484690324736:android:84a65aa14c6103a7b2d7e5",
+        "android_client_info": {
+          "package_name": "com.project.savingit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484690324736-rdve9skkqld5mmh3o9h5nm54dd0rfst9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIEg42aKik0GEEnEYGuIpGpSkXhYBdPhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484690324736-rdve9skkqld5mmh3o9h5nm54dd0rfst9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

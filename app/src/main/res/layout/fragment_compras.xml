@@ -1,14 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComprasFragment">
+    android:background="@color/negroNoche"
+    android:orientation="vertical"
+    tools:context=".ComprasFragment"
+    android:layout_marginBottom="70dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Andres chichon" />
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
 
-</FrameLayout>
+
+        <SearchView
+            android:id="@+id/buscar_productos"
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:outlineAmbientShadowColor="@color/white"
+            android:outlineSpotShadowColor="@color/white"
+            android:queryHint="Buscar productos" />
+
+        <Spinner
+            android:id="@+id/filtrar"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/buscar_productos"
+            android:layout_marginLeft="20dp"
+            android:autofillHints="Filtrar"/>
+
+        <RelativeLayout
+            android:id="@+id/lay1"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="@drawable/border_rounded_compras"
+            android:layout_below="@+id/buscar_productos"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/nombre_producto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Redragon KUMARA K552 Rojo y RGB"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
+
+            <ImageView
+                android:id="@+id/foto_producto"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_below="@+id/nombre_producto"
+                android:src="@drawable/teclado" />
+
+            <TextView
+                android:id="@+id/titulo_mejorP"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/foto_producto"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:text="Mejor precio"
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/titulo_otroP"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/foto_producto"
+                android:layout_toRightOf="@+id/titulo_mejorP"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:text="Otros precios"
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/mejorP"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titulo_mejorP"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:text="$129.980"
+                android:textAlignment="center"
+                android:textColor="#61ED49"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/foto_mejorP"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/titulo_mejorP"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/mejorP"
+                android:src="@drawable/ebay" />
+
+            <TextView
+                android:id="@+id/otroP1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titulo_otroP"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/foto_mejorP"
+                android:text="$139.980"
+                android:textAlignment="center"
+                android:textColor="#D81B60"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/foto_otroP1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/titulo_mejorP"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/otroP1"
+                android:src="@drawable/google" />
+
+            <TextView
+                android:id="@+id/otroP2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otroP1"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="26dp"
+                android:layout_toRightOf="@+id/foto_mejorP"
+                android:text="$149.980"
+                android:textAlignment="center"
+                android:textColor="#D81B60"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/foto_otroP2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/foto_otroP1"
+                android:layout_toRightOf="@+id/otroP1"
+                android:src="@drawable/amazon" />
+
+            <TextView
+                android:id="@+id/titulo_ahorro"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otroP2"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="120dp"
+                android:text="Ahorro: "
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/ahorroT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otroP2"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/titulo_ahorro"
+                android:text="$129.980"
+                android:textAlignment="center"
+                android:textColor="#61ED49"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="@drawable/border_rounded_compras"
+            android:layout_below="@+id/lay1"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/nombre_producto2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:text="Televisor 40 pulgadas smart TV"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/foto_producto2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_below="@+id/nombre_producto2"
+                android:src="@drawable/tv" />
+
+            <TextView
+                android:id="@+id/titulo_mejorP2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/foto_producto2"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:text="Mejor precio"
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/titulo_otroP2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/foto_producto2"
+                android:layout_toRightOf="@+id/titulo_mejorP2"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:text="Otros precios"
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/mejorP2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titulo_mejorP2"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:text="$1'980.000"
+                android:textAlignment="center"
+                android:textColor="#61ED49"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/foto_mejorP2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/titulo_mejorP2"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/mejorP2"
+                android:src="@drawable/ebay" />
+
+            <TextView
+                android:id="@+id/otroP12"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titulo_otroP2"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/foto_mejorP2"
+                android:text="$2.480.000"
+                android:textAlignment="center"
+                android:textColor="#D81B60"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/foto_otroP12"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/titulo_mejorP2"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/otroP12"
+                android:src="@drawable/google" />
+
+            <TextView
+                android:id="@+id/otroP22"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otroP12"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="26dp"
+                android:layout_toRightOf="@+id/foto_mejorP2"
+                android:text="$2.530.000"
+                android:textAlignment="center"
+                android:textColor="#D81B60"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/foto_otroP22"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/foto_otroP12"
+                android:layout_toRightOf="@+id/otroP12"
+                android:src="@drawable/amazon" />
+
+            <TextView
+                android:id="@+id/titulo_ahorro2"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otroP22"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="120dp"
+                android:text="Ahorro: "
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/ahorroT2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otroP22"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/titulo_ahorro2"
+                android:text="$1'980.000"
+                android:textAlignment="center"
+                android:textColor="#61ED49"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>
