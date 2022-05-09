@@ -1,5 +1,6 @@
 package com.project.savingit;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,10 @@ public class RegistroAdapter extends ArrayAdapter<Registro> {
         ImageView iconoRegistro = view.findViewById(R.id.iconoRegistro);
         if(tipo == 1){
             iconoRegistro.setImageResource(R.drawable.ingreso_icono);
+            valorPago.setTextColor(Color.parseColor("#105E1D"));
         }else{
             iconoRegistro.setImageResource(R.drawable.gasto_icono);
+            valorPago.setTextColor(Color.parseColor("#952828"));
         }
         TextView fechaPago = view.findViewById(R.id.fechaPago);
         fechaPago.setText(registro.getFecha());
