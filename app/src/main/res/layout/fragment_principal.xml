@@ -31,11 +31,12 @@
                 style="@style/textoPrincipal"/>
 
             <TextView
+                android:id="@+id/balancetext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:paddingLeft="40dp"
-                android:text="$ 20´000.000"
+                android:text="$ 0"
                 style="@style/textoPrincipal"
                 android:textStyle="bold"
                 android:textSize="30dp"/>
@@ -70,11 +71,12 @@
                     style="@style/textoPrincipal"/>
 
                 <TextView
+                    android:id="@+id/ingresotext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingLeft="20dp"
-                    android:text="$ 21´000.000"
+                    android:text="$ 0"
                     style="@style/textoPrincipal"
                     android:textStyle="bold"
                     android:textSize="23dp"/>
@@ -118,7 +120,7 @@
                     style="@style/textoPrincipal"
                     android:textStyle="bold"
                     android:textSize="23dp"
-                    android:text="$ 1´000.000"/>
+                    android:text="$ 0"/>
 
                 <ImageButton
                     android:id="@+id/agregarGasto"
@@ -164,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 style="@style/textoPrincipal"
-                android:text="$ 5´000.000"
+                android:text="$ 0"
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:gravity="center"/>

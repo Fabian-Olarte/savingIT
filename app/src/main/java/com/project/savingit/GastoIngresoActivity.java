@@ -1,19 +1,51 @@
 package com.project.savingit;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
+import java.util.Date;
 
 public class GastoIngresoActivity extends AppCompatActivity {
 
     TextView textViewTitulo, textViewNombreIG, textViewValorIG, textViewCuentaIG;
     Button buttonAgregar;
     EditText inputNombreIG, inputValorIG, inputCuentaIG;
+    JSONArray registros = new JSONArray();
+    String jsonRegistros = null;
+
+
+    ActivityResultLauncher<String> WritePermision= registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +61,6 @@ public class GastoIngresoActivity extends AppCompatActivity {
         inputCuentaIG = findViewById(R.id.inputCuentaIG);
         buttonAgregar = findViewById(R.id.buttonAgregar);
 
-
         int opcion = getIntent().getIntExtra("opcion", 0);
 
         if(opcion == 1){
@@ -40,11 +71,6 @@ public class GastoIngresoActivity extends AppCompatActivity {
             textViewCuentaIG.setText("Cuenta usada");
             buttonAgregar.setText("Agregar ingreso");
             buttonAgregar.setBackgroundColor(Color.parseColor("#105E1D"));
-
-
-
-
-
 
         }
 
@@ -57,11 +83,9 @@ public class GastoIngresoActivity extends AppCompatActivity {
             buttonAgregar.setText("Agregar gasto");
             buttonAgregar.setBackgroundColor(Color.parseColor("#952828"));
 
-
-
-
-
         }
+
+        WritePermision.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         buttonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +93,11 @@ public class GastoIngresoActivity extends AppCompatActivity {
                 if(!inputNombreIG.getText().toString().isEmpty()){
                     if(!inputValorIG.getText().toString().isEmpty()){
                         if(!inputCuentaIG.getText().toString().isEmpty()){
-                            //firebase
-
-
-
+                            Date actual = new Date(System.currentTimeMillis());
+                            String fechaActual = actual.toString();
+                            Registro registro = new Registro(inputNombreIG.getText().toString(), inputCuentaIG.getText().toString(), Long.parseLong(inputValorIG.getText().toString()), opcion, fechaActual);
+                            writeJSONObject(registro);
+                            finish();
                         }
                     }
                 }
@@ -80,4 +105,57 @@ public class GastoIngresoActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void writeJSONObject(Registro registro){
+
+
+        jsonRegistros = loadJSONFromAsset();
+        Writer output = null;
+        String filename = "registros.json";
+
+        try {
+            if(jsonRegistros!=null) {
+                registros = new JSONArray(jsonRegistros);
+            }
+
+            registros.put(registro.toJSON());
+
+            File file = new File(getBaseContext().getExternalFilesDir(null), filename);
+            output = new BufferedWriter(new FileWriter(file));
+
+            output.write(registros.toString());
+            output.close();
+            Toast.makeText(this, "Registro guardado correctamente", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        FileReader fr = null;
+        try {
+            File file = new File(getExternalFilesDir(null), "registros.json");
+            StringBuilder stringBuilder = new StringBuilder();
+
+            fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+
+            while(line != null){
+                stringBuilder.append(line).append('\n');
+                line = br.readLine();
+            }
+
+            json = stringBuilder.toString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        return json;
+    }
+
 }
