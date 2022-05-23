@@ -1,28 +1,38 @@
 package com.project.savingit;
 
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.tensorflow.lite.Interpreter;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,13 +46,19 @@ public class PrincipalFragment extends Fragment {
     ImageButton agregarGasto, agregarIngreso;
     LinearLayout layoutIngresos, layoutGastos;
     View root;
-    TextView balanceText, ingresoText, gastoText;
+    TextView balanceText, ingresoText, gastoText, textCate;
+    ImageView imagenCat;
 
     String jsonRegistros = null;
     JSONArray jsonArray = null;
     long ingresos = 0;
     long gastos = 0;
+    float promedioI = 0 , promedioG = 0, tasaI = 0, tasaG = 0;
+
     FirebaseAuth auth;
+
+    Interpreter interpreter;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -96,31 +112,21 @@ public class PrincipalFragment extends Fragment {
         gastoText = root.findViewById(R.id.valorGastado);
         ingresoText = root.findViewById(R.id.ingresotext);
         balanceText = root.findViewById(R.id.balancetext);
+        textCate = root.findViewById(R.id.mensaje_categoria);
+        imagenCat = root.findViewById(R.id.imagen_categoria);
+
+        try {
+            interpreter = new Interpreter(loadModelFile());
+        }catch (Exception x){
+            x.printStackTrace();
+        }
 
         auth = FirebaseAuth.getInstance();
 
 
-        try{
-            jsonRegistros = loadJSONFromAsset();
-            jsonArray = new JSONArray(jsonRegistros);
-
-            for(int i = 0; i<jsonArray.length(); i++){
-                JSONObject jsonObj = jsonArray.getJSONObject(i);
-                Registro reg = new Registro(jsonObj.getString("nombre"), jsonObj.getString("modopago"), jsonObj.getLong("valor"), jsonObj.getInt("tipo"), jsonObj.getString("fecha"));
-                if(reg.getTipo() == 1){
-                    ingresos += reg.getValor();
-                }else{
-                    gastos += reg.getValor();
-                }
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        gastos = 0;
-        ingresos = 0;
-
         updateNumbers();
+        categoria();
+
 
         agregarIngreso.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +169,64 @@ public class PrincipalFragment extends Fragment {
         return root;
     }
 
+    private void categoria(){
+        float cate;
+        cate = doInference(promedioI, promedioG, tasaI, tasaG);
+
+        if (cate == 0){
+            imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.calavera));
+            textCate.setText("Si sigues asi, tendras problemas en tu futuro");
+            textCate.setTextColor(Color.RED);
+            Toast.makeText(this.getActivity(),"ingreso "+tasaI,Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getActivity(),"gasto "+tasaG,Toast.LENGTH_LONG).show();
+        }
+        else if (cate == 1){
+            imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.normal));
+            textCate.setText("No estas mal, pero cuida mejor tus finanzas!!");
+            textCate.setTextColor(Color.YELLOW);
+        }
+        else{
+            imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.dinero));
+            textCate.setText("Felicitaciones, vas a ser rico en un futuro!!");
+            textCate.setTextColor(Color.GREEN);
+            Toast.makeText(this.getActivity(),"ingreso "+tasaI,Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getActivity(),"gasto "+tasaG,Toast.LENGTH_LONG).show();
+        }
+
+    }
+    private MappedByteBuffer loadModelFile() throws  IOException{
+
+        AssetFileDescriptor fileDescriptor = this.getActivity().getAssets().openFd("model.tflite");
+        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = inputStream.getChannel();
+        long startOffset = fileDescriptor.getStartOffset();
+        long declaredLength = fileDescriptor.getDeclaredLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+    }
+
+    public float doInference(float promI, float promG, float tI, float tG){
+
+        float[] inputVal = new float[4];
+        inputVal[0] = promI;
+        inputVal[1] = promG;
+        inputVal[2] = tI;
+        inputVal[3] = tG;
+
+        float[][] outputVal = new float[1][3];
+
+        interpreter.run(inputVal, outputVal);
+
+        float res = -1;
+
+        for(int i = 0; i<3; i++){
+            if(outputVal[0][i] == 1){
+                res = i;
+            }
+        }
+
+        return res;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -173,22 +237,44 @@ public class PrincipalFragment extends Fragment {
         ingresoText.setText("$ "+ String.valueOf(ingresos));
         gastoText.setText("$ "+String.valueOf(gastos));
         balanceText.setText("$ "+String.valueOf(ingresos-gastos));
+        categoria();
+
     }
 
     public void updateNumbers(){
         try{
             jsonRegistros = loadJSONFromAsset();
             jsonArray = new JSONArray(jsonRegistros);
-
+            float auxI = 0, auxg = 0;
             for(int i = 0; i<jsonArray.length(); i++){
                 JSONObject jsonObj = jsonArray.getJSONObject(i);
                 Registro reg = new Registro(jsonObj.getString("nombre"), jsonObj.getString("modopago"), jsonObj.getLong("valor"), jsonObj.getInt("tipo"), jsonObj.getString("fecha"));
                 if(reg.getTipo() == 1){
+                    if (i != 0 ){
+                        if (auxI!= 0)
+                            tasaI +=((reg.getValor()-auxI)/auxI);
+                        Log.e("ingreso ", Float.toString(tasaI));
+                    }
                     ingresos += reg.getValor();
+                    auxI = reg.getValor();
                 }else{
+
+                    if (i != 0 ){
+                        if (auxg!= 0)
+                            tasaG +=((reg.getValor()-auxg)/auxg);
+                        Log.e("gasto ", Float.toString(tasaG));
+                    }
                     gastos += reg.getValor();
+                    auxg = reg.getValor();
                 }
             }
+
+            promedioI = ingresos/jsonArray.length();
+            promedioG = gastos/ jsonArray.length();
+            tasaG = tasaG/jsonArray.length();
+            tasaI = tasaI/jsonArray.length();
+
+
         }catch(Exception e){
             e.printStackTrace();
         }
