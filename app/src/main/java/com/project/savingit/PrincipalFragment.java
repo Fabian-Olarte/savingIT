@@ -173,25 +173,25 @@ public class PrincipalFragment extends Fragment {
         float cate;
         cate = doInference(promedioI, promedioG, tasaI, tasaG);
 
-        if (cate == 0){
-            imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.calavera));
-            textCate.setText("Si sigues asi, tendras problemas en tu futuro");
-            textCate.setTextColor(Color.RED);
-            Toast.makeText(this.getActivity(),"ingreso "+tasaI,Toast.LENGTH_LONG).show();
-            Toast.makeText(this.getActivity(),"gasto "+tasaG,Toast.LENGTH_LONG).show();
+        if (promedioG!= 0 && promedioI !=0){
+            if (cate == 0){
+                imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.calavera));
+                textCate.setText("Si sigues asi, tendras problemas en tu futuro");
+                textCate.setTextColor(Color.RED);
+
+            }
+            else if (cate == 1){
+                imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.normal));
+                textCate.setText("No estas mal, pero cuida mejor tus finanzas!!");
+                textCate.setTextColor(Color.YELLOW);
+            }
+            else{
+                imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.dinero));
+                textCate.setText("Felicitaciones, vas a ser rico en un futuro!!");
+                textCate.setTextColor(Color.GREEN);
+            }
         }
-        else if (cate == 1){
-            imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.normal));
-            textCate.setText("No estas mal, pero cuida mejor tus finanzas!!");
-            textCate.setTextColor(Color.YELLOW);
-        }
-        else{
-            imagenCat.setImageDrawable(ContextCompat.getDrawable(this.getActivity(), R.drawable.dinero));
-            textCate.setText("Felicitaciones, vas a ser rico en un futuro!!");
-            textCate.setTextColor(Color.GREEN);
-            Toast.makeText(this.getActivity(),"ingreso "+tasaI,Toast.LENGTH_LONG).show();
-            Toast.makeText(this.getActivity(),"gasto "+tasaG,Toast.LENGTH_LONG).show();
-        }
+
 
     }
     private MappedByteBuffer loadModelFile() throws  IOException{
